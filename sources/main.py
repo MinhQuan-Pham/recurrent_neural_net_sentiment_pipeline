@@ -1,4 +1,6 @@
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from build_model import SentimentAnalysisModel
@@ -10,8 +12,8 @@ from sklearn.model_selection import train_test_split
 def main():
     # Specify the relative path to the JSON file from the current directory
     current_directory = os.getcwd()
-    file_path = os.path.join(current_directory, "..", "data", "reviews_extended.json")
-    
+    file_path = os.path.join(current_directory, "..", "sample_data", "reviews.json")
+
     # Load and preprocess data
     df = pd.read_json(file_path)
     preprocess_data(df)
@@ -35,16 +37,23 @@ def main():
     )  # Convert y_train to a NumPy array
 
     # Evaluate the model
-    sentiment_model.evaluate(
-        X_test.tolist(), np.array(y_test).tolist()
-    )  # Convert y_test to a NumPy array
+    sentiment_model.evaluate(X_test.tolist(), np.array(y_test).tolist())
 
-    # Make predictions on new data
-    new_data = ["This is a great product!", "Super satisfied with the service."]
-    new_predictions = sentiment_model.predict(new_data)
+    # Make predictions on the test set
+    test_predictions = sentiment_model.predict(X_test.tolist())
 
-    # Print the sentiment predictions
-    print("Sentiment Predictions:", new_predictions)
+    # Visualize the distribution of sentiment scores on the test set
+    visualize_sentiment_distribution(test_predictions)
+
+
+def visualize_sentiment_distribution(sentiment_scores):
+    plt.hist(
+        sentiment_scores, bins=20, edgecolor="black"
+    )  # Adjust the number of bins as needed
+    plt.title("Distribution of Sentiment Scores")
+    plt.xlabel("Sentiment Score")
+    plt.ylabel("Number of Reviews")
+    plt.show()
 
 
 if __name__ == "__main__":

@@ -46,18 +46,14 @@ def scrape_and_store_reviews(url, company_name):
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Locate the HTML elements containing the reviews
-        review_elements = soup.find_all('div', class_='customer-review')  # Replace with the actual class or tag of review elements
+        review_elements = soup.find_all('div', class_='customer-review') 
         
         # Extract and store the reviews in the Google Cloud SQL database
         for review in review_elements:
-            review_text = review.find('p', class_='review-text').text  # Replace with the actual class or tag of review text
+            review_text = review.find('p', class_='review-text').text
             insert_review(conn, cursor, company_name, review_text)
             print(f"Review inserted into the Google Cloud SQL database: {review_text}")
     else:
         print(f"Failed to retrieve the page. Status code: {response.status_code}")
 
     conn.close()
-
-# Replace 'https://www.bbb.org/us/ca/city/company' with the actual BBB URL for the company
-# Replace 'Company Name' with the actual name of the company
-scrape_and_store_reviews('https://www.bbb.org/us/ca/city/company', 'Company Name')
