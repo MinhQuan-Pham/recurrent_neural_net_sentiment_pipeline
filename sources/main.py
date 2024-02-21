@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 from build_model import SentimentAnalysisModel
@@ -7,8 +8,12 @@ from sklearn.model_selection import train_test_split
 
 
 def main():
+    # Specify the relative path to the JSON file from the current directory
+    current_directory = os.getcwd()
+    file_path = os.path.join(current_directory, "..", "data", "reviews_extended.json")
+    
     # Load and preprocess data
-    df = pd.read_json("reviews_extended.json")
+    df = pd.read_json(file_path)
     preprocess_data(df)
 
     # Extract features
