@@ -6,7 +6,7 @@ This repository contains a sentiment analysis pipeline designed to analyze and c
 
 ![image](https://github.com/MinhQuan-Pham/customer_reviews_nlp_decoder/assets/65067055/bca6a022-b8bf-4609-bebc-08827636bab2)
 
-## Model Architecture Design
+## Model Architecture
 
 The neural network architecture was chosen based on the nature of sentiment analysis tasks. Here's a breakdown of key components:
 
